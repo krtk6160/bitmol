@@ -1,0 +1,40 @@
+body{
+  font-family: Arial, sans-serif;
+  margin: 2rem;
+  background:#f9f9f9;
+  color:#333;
+}
+
+h1{
+  text-align:center;
+}
+
+#priceTable{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:1rem;
+  background:#fff;
+}
+
+#priceTable th, #priceTable td{
+  padding:0.75rem 1rem;
+  border:1px solid #ddd;
+  text-align:center;
+}
+
+#priceTable tr:nth-child(even){
+  background:#f2f2f2;
+}
+
+.bad{
+  color:#c62828;
+}
+
+.good{
+  color:#2e7d32;
+}
+
+#updatedAt{
+  text-align:center;
+  font-style:italic;
+} 
