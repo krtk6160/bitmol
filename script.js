@@ -6,7 +6,7 @@ const sources = [
     url: "https://api.coindcx.com/exchange/ticker",
     parse: (arr) => {
       const item = arr.find((i) => i.market === "BTCINR");
-      return item ? parseFloat(item.last_price) : null;
+      return item ? parseFloat(item.ask) : null;
     }
   },
   {
