@@ -48,10 +48,17 @@ async function refresh() {
 
   tableBody.innerHTML = "";
 
+  const avgSources = ["Unocoin", "ZebPay", "CoinDCX"];
+  const avgPrices = [];
+
   results.forEach((res) => {
     if (res.status !== "fulfilled") return; // skip failed fetches
     const { source, value } = res.value;
     if (value == null || isNaN(value)) return;
+
+    if (avgSources.includes(source.name)) {
+      avgPrices.push(value);
+    }
 
     const diff = refPrice ? ((value - refPrice) / refPrice) * 100 : null;
 
@@ -75,6 +82,33 @@ async function refresh() {
 
     tableBody.appendChild(tr);
   });
+
+  if (avgPrices.length > 0) {
+    const avgPrice = avgPrices.reduce((a, b) => a + b, 0) / avgPrices.length;
+    const avgDiff = refPrice ? ((avgPrice - refPrice) / refPrice) * 100 : null;
+
+    const tr = document.createElement("tr");
+    tr.className = "average-row";
+
+    const nameTd = document.createElement("td");
+    nameTd.textContent = "Average of Indian exchanges";
+    tr.appendChild(nameTd);
+
+    const priceTd = document.createElement("td");
+    priceTd.textContent = avgPrice.toLocaleString("en-IN", { maximumFractionDigits: 0 });
+    tr.appendChild(priceTd);
+
+    const diffTd = document.createElement("td");
+    if (avgDiff == null) {
+      diffTd.textContent = "-";
+    } else {
+      diffTd.textContent = avgDiff.toFixed(2) + "%";
+      diffTd.className = avgDiff >= 0 ? "good" : "bad";
+    }
+    tr.appendChild(diffTd);
+
+    tableBody.appendChild(tr);
+  }
 
   updatedAtEl.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
 }

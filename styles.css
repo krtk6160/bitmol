@@ -34,6 +34,12 @@ h1{
   color:#2e7d32;
 }
 
+.average-row{
+  background:#e3f2fd !important;
+  font-weight:bold;
+  border-top:2px solid #1976d2;
+}
+
 #updatedAt{
   text-align:center;
   font-style:italic;
